@@ -10,8 +10,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      // template: 'src/template.html',
-      // favicon: 'src/assets/library-icon.png'
+      template: 'src/template.html',
+      favicon: 'src/assets/todo-favicon.svg'
     })
   ],
   output: {
