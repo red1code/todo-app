@@ -1,3 +1,10 @@
+:root {
+  --gap: 24px;
+  --primary-color: #317773;
+  --accent-color: #E2D1F9;
+  --third-color: gold;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -19,35 +26,62 @@ body {
   flex-direction: column;
 }
 
+/*
+header styles
+*/
+
 header {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: olive;
-  padding: 16px;
+  background-color: var(--primary-color);
+  padding: calc(var(--gap)/2) var(--gap);
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 5px 0 #313131;
 }
 
+/*
+main styles
+*/
+
 main {
   flex: 1;
-  background-color: aquamarine;
   display: flex;
   gap: 24px;
 }
 
 main>* {
-  background-color: bisque;
+  background-color: var(--accent-color);
 }
 
 .main-content {
   flex: 1;
 }
 
+.projects-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects-container>button {
+  all: unset;
+  padding:calc(var(--gap)/2) var(--gap);
+  background-color: var(--accent-color);
+  cursor: pointer;
+}
+
+.projects-container>button:hover {
+  filter: brightness(.9);
+}
+
+/*
+footer styles
+*/
+
 footer {
-  background-color: olive;
+  background-color: var(--primary-color);
   padding: 16px;
   display: flex;
   justify-content: center;
@@ -55,6 +89,6 @@ footer {
 }
 
 .red1dev-link:hover {
-  color: #800080;
+  color: var(--third-color);
   transition: .3s;
 }
