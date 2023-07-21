@@ -21,6 +21,7 @@ export default function todoService() {
     if (confirm(`Are you sure to delete task "${todo.title}"?`)) {
       _todosList = _todosList.filter(item => item.id !== deleteID);
       saveToLocalStorage(ENUMS.TODO_LIST, _todosList);
+      window.location.reload();
     }
   }
 

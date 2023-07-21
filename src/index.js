@@ -1,7 +1,7 @@
 import { getFooterYear, generateID } from './js/reusable';
 import { Project, Todo } from './js/models';
 import UI from './js/ui';
-
+import todoService from './js/todo.service';
 
 getFooterYear();
 
@@ -15,7 +15,7 @@ const newProject = new Project(generateID(), 'LalaAchou', 2, new Date());
 
 const newTask = new Todo(
   generateID(9),
-  'Test Todo 2',
+  'Test Todo 3',
   'description todo belongs to Home list!',
   new Date('07-25-2023'),
   1,

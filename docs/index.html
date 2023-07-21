@@ -14,15 +14,31 @@
     </header>
 
     <main>
-      <div class="left-sidebar"></div>
-      <div class="main-content"></div>
-      <div class="right-sidebar"></div>
+      <div class="left-sidebar">
+        <div class="projects-container" id="projectsContainer"></div>
+      </div>
+
+      <div class="main-content">
+        <div class="todo-list-container" id="todoListContainer"></div>
+      </div>
+
+      <div class="right-sidebar" id="rightSidebar">
+        <div class="top-container">
+          <div class="todo-description todoDetail" id="todoDescription"></div>
+          <div class="todo-dueDate todoDetail" id="todoDueDate"></div>
+        </div>
+        <div class="bottom-container">
+          <button class="close-side-bar reset-btn" id="closeSideBar" title="Hide details!"><b>X</b></button>
+          <div class="created-at todoDetail" id="createdAt"></div>
+          <button class="delete-todo reset-btn" id="deleteTodo" title="Delete todo!"></button>
+        </div>
+      </div>
     </main>
 
     <footer>
       <div class="footer-text">
         <span class="txt-white">Made with </span>
-        <span class="love-emoji">❤️</span> 
+        <span class="love-emoji">❤️</span>
         <span class="txt-white">by</span>
         <em>
           <a rel="noopener" class="red1dev-link txt-white" target="_blank" title="View the source code on Github"

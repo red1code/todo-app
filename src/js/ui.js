@@ -2,12 +2,21 @@ import '../css/styles.css';
 import projectService from "./project.service"
 import todoService from "./todo.service"
 import { format, formatDistance } from 'date-fns'
-import { projectsContainer, getElement } from "./reusable"
+import { projectsContainer, getElement } from "./reusable";
+import deleteIcon from '../assets/trash-can.svg';
 
 
 export default function UI() {
   const render = () => {
     _renderSidebarLinks();
+  }
+
+  const showTodoDetailsSidebar = () => {
+    getElement('rightSidebar').classList.add('show-todo-details')
+  }
+
+  const hideTodoDetailsSidebar = () => {
+    getElement('rightSidebar').classList.remove('show-todo-details')
   }
 
   const _renderSidebarLinks = () => {
@@ -39,12 +48,13 @@ export default function UI() {
       }
       todoBtn.onclick = openTodo;
       todoListContainer.appendChild(todoBtn);
-    })
+    });
   }
 
   const _openTodoDetails = (todo) => {
     getElement('todoDescription').textContent = todo.description;
-    getElement('todoDueDate').textContent = 'For: ' + format(new Date(todo.dueDate), 'MMMM dd, yyyy')
+    getElement('todoDueDate').textContent = 'For: ' + format(new Date(todo.dueDate), 'MMMM dd, yyyy');
+    getElement('createdAt').title = 'Created at ' + format(new Date(todo.createdAt), 'MMMM dd, yyyy, p');
     getElement('createdAt').textContent = 'Created ' + formatDistance(
       new Date(todo.createdAt),
       new Date(),
@@ -52,9 +62,11 @@ export default function UI() {
     ) + ' ago';
     const deleteTodo = () => {
       todoService().deleteTodo(todo);
-      window.location.reload();
     }
-    getElement('deleteTodo').onclick = deleteTodo;
+    getElement('deleteTodo').onclick = deleteTodo;//
+    getElement('deleteTodo').innerHTML = `<img src="${deleteIcon}">`
+    showTodoDetailsSidebar();
+    getElement('closeSideBar').onclick = hideTodoDetailsSidebar
   }
 
   return {
