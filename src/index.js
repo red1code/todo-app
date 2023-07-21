@@ -1,14 +1,12 @@
-import './css/styles.css';
-import { getFooterYear, generateID, renderUI } from './js/reusable';
+import { getFooterYear, generateID } from './js/reusable';
 import { Project, Todo } from './js/models';
-import projectService from './js/project.service';
-import todoService from './js/todo.service';
+import UI from './js/ui';
 
 
 getFooterYear();
 
 
-renderUI();
+UI().render();
 
 
 const newProject = new Project(generateID(), 'LalaAchou', 2, new Date());
@@ -17,12 +15,12 @@ const newProject = new Project(generateID(), 'LalaAchou', 2, new Date());
 
 const newTask = new Todo(
   generateID(9),
-  'Test Todo',
-  'This todo belongs to Home!',
-  new Date('07-23-2023'),
+  'Test Todo 2',
+  'description todo belongs to Home list!',
+  new Date('07-25-2023'),
   1,
   new Date(),
   false,
   'default_tasks'
 );
-todoService().addNewTodo(newTask)
+// todoService().addNewTodo(newTask)
