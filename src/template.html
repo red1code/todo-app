@@ -19,10 +19,21 @@
       </div>
 
       <div class="main-content">
+        <div class="todo-list-container" id="todoListContainer"></div>
         <button id="dlt-all-tasks" type="button">Delete All Tasks</button>
       </div>
 
-      <div class="right-sidebar">right-sidebar right-sidebar</div>
+      <div class="right-sidebar" id="rightSidebar">
+        <div class="top-container">
+          <div class="todo-description" id="todoDescription"></div>
+          <div class="todo-dueDate" id="todoDueDate"></div>
+        </div>
+        <div class="bottom-container">
+          <button class="close-side-bar" id="closeSideBar">X</button>
+          <div class="created-at" id="createdAt"></div>
+          <button class="delete-todo" id="deleteTodo">delete</button>
+        </div>
+      </div>
     </main>
 
     <footer>

@@ -1,5 +1,5 @@
 import {
-  ENUMS, getFromLocalStorage, saveToLocalStorage, projectsContainer, displayUI, setupHomeLink
+  ENUMS, getFromLocalStorage, saveToLocalStorage
 } from "./reusable";
 
 
@@ -10,7 +10,6 @@ export default function projectService() {
   const addNewProject = (project) => {
     _projectList.push(project);
     saveToLocalStorage(ENUMS.PROJECT_LIST, _projectList);
-    displayUI(`${ENUMS.PROJECT_LIST} : \n' ${_projectList}`);
   }
 
   const deleteProject = (project) => {
@@ -18,23 +17,12 @@ export default function projectService() {
     if (confirm(`Are you sure to delete project "${project.title}"?`)) {
       _projectList = _projectList.filter(item => item.id !== deleteID);
       saveToLocalStorage(ENUMS.PROJECT_LIST, _projectList);
-      displayUI(`${ENUMS.PROJECT_LIST} : \n' ${_projectList}`);
     }
-  }
-
-  const renderProjectsUI = () => {
-    setupHomeLink();
-    _projectList.map(item => {
-      const divProject = document.createElement('button');
-      divProject.textContent = item.title;
-      projectsContainer.appendChild(divProject);
-    })
   }
 
   return {
     getProjectList,
     addNewProject,
-    deleteProject,
-    renderProjectsUI
+    deleteProject
   }
 }

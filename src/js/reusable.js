@@ -1,8 +1,11 @@
 import todoService from "./todo.service";
+import projectService from "./project.service";
+import { format, formatDistance } from 'date-fns'
 
 
-const deleteAllTasksBtn = document.getElementById('dlt-all-tasks');
-const projectsContainer = document.getElementById('projectsContainer');
+
+const deleteAllTasksBtn = getElement('dlt-all-tasks');
+const projectsContainer = getElement('projectsContainer');
 const ENUMS = {
   TODO_LIST: 'todoList',
   PROJECT_LIST: 'projectList'
@@ -15,15 +18,60 @@ export {
   saveToLocalStorage,
   getFromLocalStorage,
   getFooterYear,
-  displayUI,
+  renderUI,
   generateID,
-  setupHomeLink
+  getElement,
+  getTomorrowDate
 }
 
 
-function displayUI(msg) {
-  console.warn(msg);
+function renderUI() {
+  renderSidebarLinks();
   deleteAllTasksBtn.onclick = todoService().deleteAllTodos;
+}
+
+function openTodoDetails(todo) {
+  getElement('todoDescription').textContent = todo.description;
+  getElement('todoDueDate').textContent = 'For: ' + format(new Date(todo.dueDate), 'MMMM dd, yyyy')
+  getElement('createdAt').textContent = 'Created ' + formatDistance(
+    new Date(todo.createdAt),
+    new Date(),
+    { addtrSuffix: true }
+  ) + ' ago';
+  const deleteTodo = () => {
+    todoService().deleteTodo(todo)
+  }
+  getElement('deleteTodo').onclick = deleteTodo;
+}
+
+function renderSidebarLinks() {
+  projectService().getProjectList().map(projectItem => {
+    const link = document.createElement('button');
+    link.textContent = projectItem.title;
+    const rederTodos = () => {
+      renderTodoList(projectItem, todoService().getTodosByProject(projectItem));
+    }
+    link.onclick = rederTodos;
+    projectsContainer.appendChild(link);
+  });
+}
+
+function renderTodoList(project, todoList) {
+  const todoListContainer = getElement('todoListContainer');
+  todoListContainer.innerHTML = '';
+  const todoListTitle = document.createElement('h3');
+  todoListTitle.classList.add('project-title')
+  todoListTitle.textContent = project.title;
+  todoListContainer.appendChild(todoListTitle);
+  todoList.map(todoItem => {
+    const todoBtn = document.createElement('button');
+    todoBtn.textContent = todoItem.title;
+    const openTodo = () => {
+      openTodoDetails(todoItem)
+    }
+    todoBtn.onclick = openTodo;
+    todoListContainer.appendChild(todoBtn);
+  })
 }
 
 
@@ -50,7 +98,7 @@ function getFromLocalStorage(key) {
 
 
 function getFooterYear() {
-  document.getElementById('currentYear').textContent = new Date().getFullYear();
+  getElement('currentYear').textContent = new Date().getFullYear();
 }
 
 
@@ -58,9 +106,10 @@ function generateID(length = 7) {
   return Math.random().toString(36).substring(2, length + 2);
 }
 
+function getElement(elID) {
+  return document.getElementById(elID)
+}
 
-function setupHomeLink() {
-  const homeLink = document.createElement('button');
-  homeLink.textContent = 'Home';
-  projectsContainer.appendChild(homeLink);
+function getTomorrowDate() {
+  return new Date(new Date().setDate(new Date().getDate() + 1))
 }
