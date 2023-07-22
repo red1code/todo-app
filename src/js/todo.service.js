@@ -1,6 +1,7 @@
 import {
   saveToLocalStorage, getFromLocalStorage, ENUMS, renderUI
-} from "./reusable";
+} from "./utilities";
+import UI from "./ui";
 
 
 export default function todoService() {
@@ -14,6 +15,7 @@ export default function todoService() {
   const addNewTodo = (todo) => {
     _todosList.push(todo);
     saveToLocalStorage(ENUMS.TODO_LIST, _todosList);
+    UI().render()
   }
 
   const deleteTodo = (todo) => {
@@ -21,7 +23,8 @@ export default function todoService() {
     if (confirm(`Are you sure to delete task "${todo.title}"?`)) {
       _todosList = _todosList.filter(item => item.id !== deleteID);
       saveToLocalStorage(ENUMS.TODO_LIST, _todosList);
-      window.location.reload();
+      UI().render();
+      UI().hideTodoDetailsSidebar()
     }
   }
 

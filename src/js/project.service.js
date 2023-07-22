@@ -1,6 +1,6 @@
 import {
   ENUMS, getFromLocalStorage, saveToLocalStorage
-} from "./reusable";
+} from "./utilities";
 
 
 export default function projectService() {
@@ -20,9 +20,18 @@ export default function projectService() {
     }
   }
 
+  const getList = (listID) => {
+    let list;
+    _projectList.map(listItem => {
+      if (listItem.id === listID) list= listItem
+    })
+    return list
+  }
+
   return {
     getProjectList,
     addNewProject,
-    deleteProject
+    deleteProject,
+    getList
   }
 }
