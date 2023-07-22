@@ -46,6 +46,7 @@ header {
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 5px 0 #313131;
+  z-index: 100;
 }
 
 header h2:hover {
@@ -72,13 +73,34 @@ main {
   -moz-box-shadow: 1px 0px 5px 1px rgba(0, 0, 0, 0.5);
 }
 
+/* list form */
+
+form input {
+  border: none;
+  outline: none;
+  padding: calc(var(--gap)/2) var(--gap);
+}
+
+#ProjectForm {
+  display: flex;
+  padding: 0 var(--gap);
+  background-color: var(--accent-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 1);
+}
+
+#ProjectForm:hover {
+  filter: brightness(.9);
+}
+
+#ProjectForm input {
+  background-color: transparent;
+}
+
+/* sidebar links */
+
 .projects-container {
   display: flex;
   flex-direction: column;
-}
-
-.project-title {
-  color: var(--primary-color);
 }
 
 .projects-container>button {
@@ -93,18 +115,62 @@ main {
   filter: brightness(.9);
 }
 
+/* todo list title */
+
+#todoListTitle {
+  color: var(--primary-color);
+  margin-bottom: var(--gap);
+}
+
+/* todo form */
+
+#todoForm {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  margin-bottom: var(--gap);
+}
+
+#todoForm .input-row-1 {
+  padding: 0 var(--gap);
+  display: flex;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+}
+
+#todoForm input[name="todoTitle"] {
+  flex: 1;
+}
+
+input[name="todoDueDate"] {
+  color: transparent;
+  width: 25px;
+  padding: 0;
+}
+
+#todoForm input[name="todoDueDate"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#todoForm input[name="todoDescription"] {
+  width: 100%;
+  /* display: none; */
+}
+
+#todoForm input[name="todoTitle"]:focus~#todoForm>input[name="todoDescription"] {
+  background-color: yellow !important;
+}
+
+.submit-btn {
+  font-size: xx-large;
+  color: var(--primary-color);
+  padding: 0;
+}
+
 /* todo list */
 
 .main-content {
   flex: 1;
-}
-
-.todo-list-container {
   padding: var(--gap);
-}
-
-.todo-list-container>h3 {
-  margin-bottom: calc(var(--gap)/1.5);
 }
 
 .todo-list-container>button {

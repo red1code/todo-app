@@ -15,10 +15,23 @@
 
     <main>
       <div class="left-sidebar">
+        <form onsubmit="" id="ProjectForm">
+          <button type="submit" class="reset-btn submit-btn">+</button>
+          <input type="text" name="projectTitle" placeholder="Add new list" required>          
+        </form>
         <div class="projects-container" id="projectsContainer"></div>
       </div>
 
       <div class="main-content">
+        <h3 id="todoListTitle"></h3>
+        <form onsubmit="" id="todoForm">
+          <div class="input-row-1">
+            <button type="submit" class="reset-btn submit-btn">+</button>
+            <input type="text" name="todoTitle" placeholder="Add a task" required>
+            <input type="date" name="todoDueDate" title="Add due date">
+          </div>
+          <input type="text" name="todoDescription" placeholder="Add description">          
+        </form>
         <div class="todo-list-container" id="todoListContainer"></div>
       </div>
 
