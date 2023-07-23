@@ -1,25 +1,18 @@
-
 export {
-  ENUMS,
-  projectsContainer,
+  STORAGE_KEYS,
   saveToLocalStorage,
   getFromLocalStorage,
   getFooterYear,
-  renderUI,
   generateID,
   getElement
 }
 
 
-const projectsContainer = getElement('projectsContainer');
 
-const ENUMS = {
+const STORAGE_KEYS = {
   TODO_LIST: 'todoList',
-  PROJECT_LIST: 'projectList'
-}
-
-function renderUI() {
-  renderSidebarLinks();
+  PROJECT_LIST: 'projectList',
+  CURRENT_PROJECT_ID: 'currentProjectID'
 }
 
 function saveToLocalStorage(key, value) {

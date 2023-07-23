@@ -15,9 +15,9 @@
 
     <main>
       <div class="left-sidebar">
-        <form onsubmit="" id="ProjectForm">
+        <form onsubmit="" id="projectForm">
           <button type="submit" class="reset-btn submit-btn">+</button>
-          <input type="text" name="projectTitle" placeholder="Add new list" required>          
+          <input type="text" name="projectName" placeholder="Add new list" required>          
         </form>
         <div class="projects-container" id="projectsContainer"></div>
       </div>
@@ -37,6 +37,7 @@
 
       <div class="right-sidebar" id="rightSidebar">
         <div class="top-container">
+          <div class="todo-title todoDetail"><strong id="todoTitle"></strong></div>
           <div class="todo-description todoDetail" id="todoDescription"></div>
           <div class="todo-dueDate todoDetail" id="todoDueDate"></div>
         </div>

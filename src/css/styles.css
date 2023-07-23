@@ -73,7 +73,7 @@ main {
   -moz-box-shadow: 1px 0px 5px 1px rgba(0, 0, 0, 0.5);
 }
 
-/* list form */
+/* project form */
 
 form input {
   border: none;
@@ -81,18 +81,18 @@ form input {
   padding: calc(var(--gap)/2) var(--gap);
 }
 
-#ProjectForm {
+#projectForm {
   display: flex;
   padding: 0 var(--gap);
   background-color: var(--accent-color);
   border-bottom: 1px solid rgba(255, 255, 255, 1);
 }
 
-#ProjectForm:hover {
+#projectForm:hover {
   filter: brightness(.9);
 }
 
-#ProjectForm input {
+#projectForm input {
   background-color: transparent;
 }
 
@@ -153,11 +153,6 @@ input[name="todoDueDate"] {
 
 #todoForm input[name="todoDescription"] {
   width: 100%;
-  /* display: none; */
-}
-
-#todoForm input[name="todoTitle"]:focus~#todoForm>input[name="todoDescription"] {
-  background-color: yellow !important;
 }
 
 .submit-btn {
@@ -210,26 +205,29 @@ input[name="todoDueDate"] {
 }
 
 .todoDetail {
+  margin-bottom: var(--gap);
   padding: calc(var(--gap)/3) calc(var(--gap)/2);
   border-radius: 3px;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
 }
 
 .right-sidebar .bottom-container {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: var(--gap);
   display: flex;
   justify-content: space-between;
   align-items: end;
   gap: var(--gap);
 }
 
-.todo-description {
-  margin-bottom: var(--gap);
+#createdAt {
+  margin: 0;
 }
 
 #closeSideBar {
   font-size: large;
-  padding: calc(var(--gap) / 3);
-  border-radius: 5px;
+  padding: calc(var(--gap) / 6);
 }
 
 #closeSideBar:hover {

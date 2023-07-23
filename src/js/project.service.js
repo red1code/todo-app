@@ -1,29 +1,34 @@
+import UI from "./ui";
 import {
-  ENUMS, getFromLocalStorage, saveToLocalStorage
+  STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage
 } from "./utilities";
 
 
+
 export default function projectService() {
-  let _projectList = getFromLocalStorage(ENUMS.PROJECT_LIST) || [];
+  let _projectList = getFromLocalStorage(STORAGE_KEYS.PROJECT_LIST) || [];
+
   const getProjectList = () => _projectList;
 
   const addNewProject = (project) => {
     _projectList.push(project);
-    saveToLocalStorage(ENUMS.PROJECT_LIST, _projectList);
+    saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
+    UI().render()
   }
 
   const deleteProject = (project) => {
     const deleteID = todo.id;
     if (confirm(`Are you sure to delete project "${project.title}"?`)) {
       _projectList = _projectList.filter(item => item.id !== deleteID);
-      saveToLocalStorage(ENUMS.PROJECT_LIST, _projectList);
+      saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
+      UI().render()
     }
   }
 
-  const getList = (listID) => {
+  const getProject = (listID) => {
     let list;
     _projectList.map(listItem => {
-      if (listItem.id === listID) list= listItem
+      if (listItem.id === listID) list = listItem
     })
     return list
   }
@@ -32,6 +37,6 @@ export default function projectService() {
     getProjectList,
     addNewProject,
     deleteProject,
-    getList
+    getProject
   }
 }

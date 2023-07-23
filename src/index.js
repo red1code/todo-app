@@ -1,9 +1,7 @@
-import { getFooterYear, generateID } from './js/utilities';
-// import { Project, Todo, List } from './js/models';
+import { getFooterYear } from './js/utilities';
 import UI from './js/ui';
-// import todoService from './js/todo.service';
 
-getFooterYear();
 
 
 UI().render();
+getFooterYear();

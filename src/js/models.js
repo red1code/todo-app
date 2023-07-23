@@ -1,7 +1,8 @@
 export {
   Todo,
-  List
+  Project
 }
+
 
 
 function Todo(id, title, description, dueDate, createdAt, isCompleted, parentProject) {
@@ -16,34 +17,10 @@ function Todo(id, title, description, dueDate, createdAt, isCompleted, parentPro
   }
 }
 
-function List(id, title, createdAt) {
+function Project(id, name, createdAt) {
   return {
     id,
-    title,
+    name,
     createdAt
   }
 }
-
-
-// class Todo {
-//   constructor(id, title, description, dueDate, priority, createdAt, isCompleted, parentProject) {
-//     this.id = id;
-//     this.title = title;
-//     this.description = description;
-//     this.dueDate = dueDate;
-//     this.priority = priority;
-//     this.createdAt = createdAt;
-//     this.isCompleted = isCompleted;
-//     this.parentProject = parentProject;
-//   }
-// }
-
-
-// class Project {
-//   constructor(id, title, priority, createdAt) {
-//     this.id = id;
-//     this.title = title;
-//     this.priority = priority;
-//     this.createdAt = createdAt;
-//   }
-// }

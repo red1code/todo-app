@@ -1,11 +1,13 @@
 import {
-  saveToLocalStorage, getFromLocalStorage, ENUMS, renderUI
+  saveToLocalStorage, getFromLocalStorage, STORAGE_KEYS
 } from "./utilities";
 import UI from "./ui";
 
 
+
 export default function todoService() {
-  let _todosList = getFromLocalStorage(ENUMS.TODO_LIST) || [];
+  let _todosList = getFromLocalStorage(STORAGE_KEYS.TODO_LIST) || [];
+
   const getAllTodos = () => _todosList;
 
   const getTodosByProject = (project) => {
@@ -14,7 +16,7 @@ export default function todoService() {
 
   const addNewTodo = (todo) => {
     _todosList.push(todo);
-    saveToLocalStorage(ENUMS.TODO_LIST, _todosList);
+    saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
     UI().render()
   }
 
@@ -22,7 +24,7 @@ export default function todoService() {
     const deleteID = todo.id;
     if (confirm(`Are you sure to delete task "${todo.title}"?`)) {
       _todosList = _todosList.filter(item => item.id !== deleteID);
-      saveToLocalStorage(ENUMS.TODO_LIST, _todosList);
+      saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
       UI().render();
       UI().hideTodoDetailsSidebar()
     }
@@ -31,7 +33,7 @@ export default function todoService() {
   const deleteAllTodos = () => {
     if (confirm(`Are you sure you want to delete all tasks?`)) {
       _todosList = [];
-      saveToLocalStorage(ENUMS.TODO_LIST, _todosList);
+      saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
     }
   }
 
