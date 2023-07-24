@@ -17,20 +17,22 @@ export default function projectService() {
   }
 
   const deleteProject = (project) => {
-    const deleteID = todo.id;
     if (confirm(`Are you sure to delete project "${project.title}"?`)) {
-      _projectList = _projectList.filter(item => item.id !== deleteID);
+      _projectList = _projectList.filter(item => item.id !== project.id);
       saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
       UI().render()
     }
   }
 
-  const getProject = (listID) => {
-    let list;
-    _projectList.map(listItem => {
-      if (listItem.id === listID) list = listItem
+  const getProject = (projectID) => {
+    let project;
+    _projectList.map(projectItem => {
+      if (projectItem.id === projectID) {
+        project = projectItem;
+        return
+      }
     })
-    return list
+    return project
   }
 
   return {
