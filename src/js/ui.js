@@ -46,10 +46,65 @@ export default function UI() {
     todoListContainer.innerHTML = '';
     getElement('todoListTitle').textContent = project.name;
     todoList.map(todo => {
-      const todoBtn = document.createElement('button');
-      todoBtn.textContent = todo.title;
-      todoBtn.onclick = () => { _openTodoDetails(todo) }
-      todoListContainer.appendChild(todoBtn);
+      todoListContainer.appendChild(_getTodoBtn(todo));
+    });
+    const completedTodos = todoService().getCompletedTodos(project)
+    if (completedTodos.length > 0) {
+      todoListContainer.appendChild(_getCompletedTitleBtn(project, completedTodos.length));
+    }
+  }
+
+  const _getTodoCheckBox = (todo) => {
+    const checkBox = document.createElement('input');
+    checkBox.type = 'checkbox';
+    checkBox.title = 'Click to change completed status'
+    checkBox.checked = todo.isCompleted;
+    checkBox.addEventListener('click', evt => {
+      todoService().updateTodo(todo.id, {
+        isCompleted: !todo.isCompleted
+      })
+    });
+    return checkBox
+  }
+
+  const _getTodoBtn = (todo) => {
+    const todoBtn = document.createElement('button');
+    todoBtn.classList.add('reset-btn', 'task-btn');
+    todoBtn.appendChild(_getTodoCheckBox(todo));
+    todoBtn.append(todo.title);
+    todoBtn.onclick = () => { _openTodoDetails(todo) }
+    if (todo.isCompleted === true) {
+      todoBtn.style.textDecoration = 'line-through'
+    }
+    return todoBtn
+  }
+
+  const _getCompletedTitleBtn = (project, completedTodosLength) => {
+    const completedBtn = document.createElement('button');
+    completedBtn.classList.add('reset-btn', 'completed-title-btn');
+    completedBtn.innerHTML = `<span>+</span>
+      <span><strong>Completed</strong></span>
+      <span>${completedTodosLength}</span>`;
+    completedBtn.onclick = () => {
+      if (_isCompletedListRendered === false) {
+        _renderCompletedTasks(project);
+        completedBtn.innerHTML = `<span>-</span>
+          <span><strong>Completed</strong></span>
+          <span>${completedTodosLength}</span>`;
+        _isCompletedListRendered = true;
+      }
+      else if (_isCompletedListRendered === true) {
+        _renderTodoList(project);
+        _isCompletedListRendered = false;
+      }
+    }
+    return completedBtn
+  }
+
+  const _renderCompletedTasks = (project) => {
+    const completedTodos = todoService().getCompletedTodos(project);
+    completedTodos.map(todo => {
+      todoListContainer.appendChild(_getTodoBtn(todo));
     });
   }
 
@@ -118,6 +173,8 @@ export default function UI() {
   const hideTodoDetailsSidebar = () => {
     getElement('rightSidebar').classList.remove('show-todo-details')
   }
+
+  let _isCompletedListRendered = false;
 
   return {
     render,

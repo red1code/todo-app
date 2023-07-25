@@ -168,20 +168,28 @@ input[name="todoDueDate"] {
   padding: var(--gap);
 }
 
-.todo-list-container>button {
+.task-btn {
   padding: calc(var(--gap)/2) calc(var(--gap)/1.5);
   margin-bottom: calc(var(--gap)/2);
   background-color: var(--accent-color);
   width: 100%;
   text-align: left;
-  border: none;
   border-radius: 5px;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.75);
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
 }
 
-.todo-list-container>button:hover {
+.task-btn:hover {
   filter: brightness(.9);
+}
+
+.completed-title-btn {
+  margin-block: calc(var(--gap) / 1.5);
+  padding: calc(var(--gap)/1.5) calc(var(--gap)/2);
+  display: flex;
+  gap: calc(var(--gap) / 2);
 }
 
 /* right sidebar (todo details) */

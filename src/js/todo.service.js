@@ -11,11 +11,27 @@ export default function todoService() {
   const getAllTodos = () => _todosList;
 
   const getTodosByProject = (project) => {
-    return _todosList.filter(item => item.parentProject === project.id)
+    return _todosList.filter(item => item.parentProject === project.id && item.isCompleted === false)
   }
 
   const addNewTodo = (todo) => {
     _todosList.push(todo);
+    saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
+    UI().render()
+  }
+
+  const getCompletedTodos = (project) => {
+    return _todosList.filter(item => item.parentProject === project.id && item.isCompleted === true)
+  }
+
+  const updateTodo = (todoID, todoUpdates) => {
+    _todosList.map(todoItem => {
+      if (todoItem.id === todoID) {
+        Object.keys(todoUpdates).forEach(key => {
+          todoItem[key] = todoUpdates[key]
+        })
+      }
+    });
     saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
     UI().render()
   }
@@ -40,7 +56,9 @@ export default function todoService() {
   return {
     getAllTodos,
     getTodosByProject,
+    getCompletedTodos,
     addNewTodo,
+    updateTodo,
     deleteTodo,
     deleteAllTodos
   }
