@@ -10,8 +10,31 @@ export default function projectService() {
 
   const getProjectList = () => _projectList;
 
+  const getProject = (projectID) => {
+    let project;
+    _projectList.map(projectItem => {
+      if (projectItem.id === projectID) {
+        project = projectItem;
+        return
+      }
+    })
+    return project
+  }
+
   const addNewProject = (project) => {
     _projectList.push(project);
+    saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
+    UI().render()
+  }
+
+  const updateProject = (projectID, projectUpdates) => {
+    _projectList.map(projectItem => {
+      if (projectItem.id === projectID) {
+        Object.keys(projectUpdates).forEach(key => {
+          projectItem[key] = projectUpdates[key]
+        })
+      }
+    });
     saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
     UI().render()
   }
@@ -24,21 +47,11 @@ export default function projectService() {
     }
   }
 
-  const getProject = (projectID) => {
-    let project;
-    _projectList.map(projectItem => {
-      if (projectItem.id === projectID) {
-        project = projectItem;
-        return
-      }
-    })
-    return project
-  }
-
   return {
     getProjectList,
+    getProject,
     addNewProject,
+    updateProject,
     deleteProject,
-    getProject
   }
 }

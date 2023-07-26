@@ -44,13 +44,31 @@ export default function UI() {
     const todoList = todoService().getTodosByProject(project);
     const todoListContainer = getElement('todoListContainer');
     todoListContainer.innerHTML = '';
-    getElement('todoListTitle').textContent = project.name;
+    _renderTodoListTitle(project);
     todoList.map(todo => {
       todoListContainer.appendChild(_getTodoBtn(todo));
     });
     const completedTodos = todoService().getCompletedTodos(project)
     if (completedTodos.length > 0) {
       todoListContainer.appendChild(_getCompletedTitleBtn(project, completedTodos.length));
+    }
+  }
+
+  const _renderTodoListTitle = (project) => {
+    const todoListTitle = getElement('todoListTitle');
+    todoListTitle.textContent = project.name;
+    if (project.name !== 'Home') {
+      todoListTitle.contentEditable = true;
+      todoListTitle.onkeydown = evt => {
+        if (evt.which === 13) {
+          evt.preventDefault();
+          projectService().updateProject(project.id, { name: evt.target.innerText });
+          todoListTitle.blur()
+        }
+      }
+    }
+    if (project.name === 'Home') {
+      todoListTitle.contentEditable = false
     }
   }
 
@@ -150,10 +168,37 @@ export default function UI() {
   }
 
   const _openTodoDetails = (todo) => {
-    getElement('todoTitle').textContent = todo.title;
-    getElement('todoDescription').textContent = todo.description;
-    getElement('todoDueDate').textContent = todo.dueDate ?
+    const todoTitle = getElement('todoTitle');
+    todoTitle.textContent = todo.title;
+    todoTitle.contentEditable = true;
+    todoTitle.onkeydown = evt => {
+      if (evt.which === 13) {
+        evt.preventDefault();
+        todoService().updateTodo(todo.id, { title: evt.target.innerText });
+        todoTitle.blur()
+      }
+    }
+    const todoDescription = getElement('todoDescription')
+    todoDescription.textContent = todo.description;
+    todoDescription.contentEditable = true;
+    todoDescription.onkeydown = evt => {
+      if (evt.which === 13) {
+        evt.preventDefault();
+        todoService().updateTodo(todo.id, { description: evt.target.innerText });
+        todoDescription.blur()
+      }
+    }
+    const todoDueDate = getElement('todoDueDate');
+    todoDueDate.textContent = todo.dueDate ?
       'For: ' + format(new Date(todo.dueDate), 'MMMM dd, yyyy') : 'For: ';
+    todoDueDate.contentEditable = true;
+    todoDueDate.onkeydown = evt => {
+      if (evt.which === 13) {
+        evt.preventDefault();
+        todoService().updateTodo(todo.id, { dueDate: new Date(evt.target.innerText) });
+        todoDueDate.blur()
+      }
+    }
     getElement('createdAt').title = 'Created at ' + format(new Date(todo.createdAt), 'MMMM dd, yyyy, p');
     getElement('createdAt').textContent = 'Created ' + formatDistance(
       new Date(todo.createdAt),
