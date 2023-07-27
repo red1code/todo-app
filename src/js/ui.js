@@ -60,10 +60,14 @@ export default function UI() {
     if (project.name !== 'Home') {
       todoListTitle.contentEditable = true;
       todoListTitle.onkeydown = evt => {
-        if (evt.which === 13) {
+        if (evt.key === 'Enter') {
           evt.preventDefault();
           projectService().updateProject(project.id, { name: evt.target.innerText });
           todoListTitle.blur()
+        }
+        if (evt.key === 'Escape') {
+          todoListTitle.blur();
+          todoListTitle.textContent = project.name;
         }
       }
     }
@@ -172,31 +176,44 @@ export default function UI() {
     todoTitle.textContent = todo.title;
     todoTitle.contentEditable = true;
     todoTitle.onkeydown = evt => {
-      if (evt.which === 13) {
+      if (evt.key === 'Enter') {
         evt.preventDefault();
         todoService().updateTodo(todo.id, { title: evt.target.innerText });
-        todoTitle.blur()
+        todoTitle.blur();
+      }
+      if (evt.key === 'Escape') {
+        todoTitle.blur();
+        todoTitle.textContent = todo.title;
       }
     }
     const todoDescription = getElement('todoDescription')
     todoDescription.textContent = todo.description;
     todoDescription.contentEditable = true;
     todoDescription.onkeydown = evt => {
-      if (evt.which === 13) {
+      if (evt.key === 'Enter') {
         evt.preventDefault();
         todoService().updateTodo(todo.id, { description: evt.target.innerText });
-        todoDescription.blur()
+        todoDescription.blur();
+      }
+      if (evt.key === 'Escape') {
+        todoDescription.blur();
+        todoDescription.textContent = todo.description;
       }
     }
     const todoDueDate = getElement('todoDueDate');
-    todoDueDate.textContent = todo.dueDate ?
-      'For: ' + format(new Date(todo.dueDate), 'MMMM dd, yyyy') : 'For: ';
+    const getDueDate = todo.dueDate ? 'Due ' + format(new Date(todo.dueDate), 'MMMM dd, yyyy') : 'Due ';
+    todoDueDate.textContent = getDueDate;
     todoDueDate.contentEditable = true;
     todoDueDate.onkeydown = evt => {
-      if (evt.which === 13) {
+      const getDueUpdate = evt.target.innerText ? new Date(evt.target.innerText) : null;
+      if (evt.key === 'Enter') {
         evt.preventDefault();
-        todoService().updateTodo(todo.id, { dueDate: new Date(evt.target.innerText) });
-        todoDueDate.blur()
+        todoService().updateTodo(todo.id, { dueDate: getDueUpdate });
+        todoDueDate.blur();
+      }
+      if (evt.key === 'Escape') {
+        todoDueDate.blur();
+        todoDueDate.textContent = getDueDate;
       }
     }
     getElement('createdAt').title = 'Created at ' + format(new Date(todo.createdAt), 'MMMM dd, yyyy, p');
