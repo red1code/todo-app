@@ -4,7 +4,6 @@ import {
 import UI from "./ui";
 
 
-
 export default function todoService() {
   let _todosList = getFromLocalStorage(STORAGE_KEYS.TODO_LIST) || [];
 
@@ -46,11 +45,9 @@ export default function todoService() {
     }
   }
 
-  const deleteAllTodos = () => {
-    if (confirm(`Are you sure you want to delete all tasks?`)) {
-      _todosList = [];
-      saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
-    }
+  const deleteProjectTasks = (projectID) => {
+    _todosList = _todosList.filter(task => task.parentProject !== projectID);
+    saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
   }
 
   return {
@@ -60,6 +57,6 @@ export default function todoService() {
     addNewTodo,
     updateTodo,
     deleteTodo,
-    deleteAllTodos
+    deleteProjectTasks
   }
 }

@@ -56,24 +56,40 @@ export default function UI() {
 
   const _renderTodoListTitle = (project) => {
     const todoListTitle = getElement('todoListTitle');
-    todoListTitle.textContent = project.name;
+    todoListTitle.innerHTML = `<span>${project.name}</span>`;
     if (project.name !== 'Home') {
-      todoListTitle.contentEditable = true;
-      todoListTitle.onkeydown = evt => {
+      todoListTitle.append(_getDeleteListBtn(project));
+      todoListTitle.firstChild.contentEditable = true;
+      todoListTitle.firstChild.onkeydown = evt => {
         if (evt.key === 'Enter') {
           evt.preventDefault();
           projectService().updateProject(project.id, { name: evt.target.innerText });
           todoListTitle.blur()
         }
         if (evt.key === 'Escape') {
-          todoListTitle.blur();
-          todoListTitle.textContent = project.name;
+          todoListTitle.firstChild.blur();
+          todoListTitle.firstChild.innerHTML = `<span>${project.name}</span>`;
         }
       }
     }
     if (project.name === 'Home') {
       todoListTitle.contentEditable = false
     }
+  }
+
+  const _getDeleteListBtn = (project) => {
+    const deleteListBtn = document.createElement('button');
+    deleteListBtn.innerHTML = `<img src="${deleteIcon}" width="16">Delete list`;
+    deleteListBtn.classList.add('reset-btn', 'delete-list-btn');
+    deleteListBtn.onclick = () => {
+      if (confirm(`"${project.name}" list will be permanently deleted. \nDo you want to continue?`)) {
+        saveToLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID, 'default_tasks');
+        todoService().deleteProjectTasks(project.id);
+        projectService().deleteProject(project.id);
+        UI().render()
+      }
+    }
+    return deleteListBtn
   }
 
   const _getTodoCheckBox = (todo) => {

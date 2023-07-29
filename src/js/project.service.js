@@ -39,12 +39,9 @@ export default function projectService() {
     UI().render()
   }
 
-  const deleteProject = (project) => {
-    if (confirm(`Are you sure to delete project "${project.title}"?`)) {
-      _projectList = _projectList.filter(item => item.id !== project.id);
-      saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
-      UI().render()
-    }
+  const deleteProject = (projectID) => {
+    _projectList = _projectList.filter(item => item.id !== projectID);
+    saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
   }
 
   return {
