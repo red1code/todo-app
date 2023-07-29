@@ -11,25 +11,20 @@ import {
 
 
 export default function UI() {
+  const _currentProjectID = getFromLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID) || 'default_tasks';
+
   const render = () => {
-    const currentProject = projectService().getProject(_currentProjectID());
+    projectService().setupHomeProject();
+    const currentProject = projectService().getProject(_currentProjectID);
     _renderSidebarLinks();
     _renderTodoList(currentProject);
     _handleProjectForm();
     _handleTodoForm()
   }
 
-  const _currentProjectID = () => {
-    const currentProjectID = getFromLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID)
-    if (!currentProjectID) {
-      saveToLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID, 'default_tasks');
-    }
-    return currentProjectID
-  }
-
   const _renderSidebarLinks = () => {
     getElement('projectsContainer').innerHTML = '';
-    _getProjectLinks().map(project => {
+    projectService().getProjectList().map(project => {
       const link = document.createElement('button');
       link.textContent = project.name;
       link.onclick = () => {
@@ -110,7 +105,10 @@ export default function UI() {
     todoBtn.classList.add('reset-btn', 'task-btn');
     todoBtn.appendChild(_getTodoCheckBox(todo));
     todoBtn.append(todo.title);
-    todoBtn.onclick = () => { _openTodoDetails(todo) }
+    todoBtn.onclick = (evt) => {
+      if (evt.target !== evt.currentTarget) return;
+      _openTodoDetails(todo)
+    }
     if (todo.isCompleted === true) {
       todoBtn.style.textDecoration = 'line-through'
     }
@@ -169,22 +167,11 @@ export default function UI() {
         evt.target.elements['todoDueDate'].value,
         new Date(),
         false,
-        _currentProjectID()
+        _currentProjectID
       );
       todoService().addNewTodo(newTodo);
       getElement('todoForm').reset();
     }
-  }
-
-  const _getProjectLinks = () => {
-    if (projectService().getProjectList().length === 0) {
-      projectService().addNewProject({
-        id: 'default_tasks',
-        name: 'Home',
-        createdAt: new Date()
-      });
-    }
-    return projectService().getProjectList()
   }
 
   const _openTodoDetails = (todo) => {

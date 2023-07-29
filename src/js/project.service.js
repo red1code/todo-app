@@ -44,7 +44,19 @@ export default function projectService() {
     saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
   }
 
+  const setupHomeProject = () => {
+    if (_projectList.length > 0) {
+      return
+    }
+    addNewProject({
+      id: 'default_tasks',
+      name: 'Home',
+      createdAt: new Date()
+    });
+  }
+
   return {
+    setupHomeProject,
     getProjectList,
     getProject,
     addNewProject,
