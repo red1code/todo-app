@@ -48,11 +48,7 @@ export default function projectService() {
     if (_projectList.length > 0) {
       return
     }
-    addNewProject({
-      id: 'default_tasks',
-      name: 'Home',
-      createdAt: new Date()
-    });
+    addNewProject({ id: 'default_tasks', name: 'Home', createdAt: new Date() });
   }
 
   return {
@@ -61,6 +57,6 @@ export default function projectService() {
     getProject,
     addNewProject,
     updateProject,
-    deleteProject,
+    deleteProject
   }
 }

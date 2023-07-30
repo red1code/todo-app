@@ -1,5 +1,6 @@
 export {
   STORAGE_KEYS,
+  getCurrentProjectID,
   saveToLocalStorage,
   getFromLocalStorage,
   getFooterYear,
@@ -13,6 +14,10 @@ const STORAGE_KEYS = {
   TODO_LIST: 'todoList',
   PROJECT_LIST: 'projectList',
   CURRENT_PROJECT_ID: 'currentProjectID'
+}
+
+function getCurrentProjectID() {
+  return getFromLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID) || 'default_tasks'
 }
 
 function saveToLocalStorage(key, value) {

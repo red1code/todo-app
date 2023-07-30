@@ -1,6 +1,5 @@
-import {
-  saveToLocalStorage, getFromLocalStorage, STORAGE_KEYS
-} from "./utilities";
+import { saveToLocalStorage, getFromLocalStorage, STORAGE_KEYS } from "./utilities";
+import { hideTodoDetailsSidebar } from "./ui-parts/todo-details";
 import UI from "./ui";
 
 
@@ -41,7 +40,7 @@ export default function todoService() {
       _todosList = _todosList.filter(item => item.id !== deleteID);
       saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
       UI().render();
-      UI().hideTodoDetailsSidebar()
+      hideTodoDetailsSidebar()
     }
   }
 
