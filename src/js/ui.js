@@ -12,12 +12,12 @@ import headerToggleMenuIcon from './UI/header-ui';
 
 
 export default function UI() {
-  const _currentProjectID = getFromLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID) || 'default_tasks';
+  const _currentProjectID = () => getFromLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID) || 'default_tasks';
 
   const render = () => {
     projectService().setupHomeProject();
     headerToggleMenuIcon();
-    const currentProject = projectService().getProject(_currentProjectID);
+    const currentProject = projectService().getProject(_currentProjectID());
     _renderSidebarLinks();
     _renderTodoList(currentProject);
     _handleProjectForm();
@@ -31,7 +31,7 @@ export default function UI() {
       link.textContent = project.name;
       link.onclick = () => {
         _renderTodoList(project);
-        saveToLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID, project.id)
+        saveToLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID, project.id);
       }
       getElement('projectsContainer').appendChild(link);
     });
@@ -169,7 +169,7 @@ export default function UI() {
         evt.target.elements['todoDueDate'].value,
         new Date(),
         false,
-        _currentProjectID
+        _currentProjectID()
       );
       todoService().addNewTodo(newTodo);
       getElement('todoForm').reset();
