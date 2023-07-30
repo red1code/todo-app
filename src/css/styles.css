@@ -38,15 +38,20 @@ header styles
 
 header {
   position: -webkit-sticky;
+  height: 55px;
   position: sticky;
   top: 0;
   background-color: var(--primary-color);
   padding: calc(var(--gap)/2) var(--gap);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 5px 0 #313131;
   z-index: 100;
+}
+
+#ToggleMenu {
+  cursor: pointer;
 }
 
 header h2:hover {
@@ -61,16 +66,28 @@ main styles
 main {
   flex: 1;
   display: flex;
+  position: relative;
 }
 
-/* sidebar */
+.mobile-popup-bg {
+  display: none;
+}
+
+/* left sidebar */
 
 .left-sidebar {
-  width: 200px;
+  position: relative;
+  max-width: 295px;
   background-color: var(--accent-color);
   box-shadow: 1px 0px 5px 1px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 1px 0px 5px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 1px 0px 5px 1px rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 90;
+}
+
+.show-left-menu {
+  display: block;
 }
 
 /* project form */
@@ -109,6 +126,7 @@ form input {
   background-color: var(--accent-color);
   cursor: pointer;
   border-bottom: 1px solid #fff;
+  word-wrap: break-word;
 }
 
 .projects-container>button:hover {
@@ -135,6 +153,7 @@ form input {
   align-items: center;
   gap: calc(var(--gap)/3);
 }
+
 .delete-list-btn:hover {
   filter: brightness(.9);
   transition: .3s;
@@ -146,6 +165,7 @@ form input {
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   margin-bottom: var(--gap);
+  background-color: #fff;
 }
 
 #todoForm .input-row-1 {
@@ -171,6 +191,7 @@ input[name="todoDueDate"] {
 
 #todoForm input[name="todoDescription"] {
   width: 100%;
+  border-radius: 5px;
 }
 
 .submit-btn {
@@ -281,12 +302,55 @@ footer styles
 footer {
   background-color: var(--primary-color);
   padding: 16px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
 .red1dev-link:hover {
   color: var(--third-color);
   transition: .3s;
+}
+
+.blur {
+  filter: blur(50%);
+}
+
+/*
+==============
+responsiveness
+==============
+*/
+
+@media screen and (max-width: 780px) {
+
+  .show-left-menu {
+    display: block;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 11;
+  }
+
+  .show-todo-details {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 11;
+  }
+
+  .dark-bg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background-color: black;
+    opacity: .5;
+    filter: blur(.5);
+    cursor: pointer;
+    z-index: 10;
+  }
 }

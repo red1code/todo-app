@@ -7,6 +7,7 @@ import { format, formatDistance } from 'date-fns';
 import {
   getElement, generateID, STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage
 } from "./utilities";
+import headerToggleMenuIcon from './UI/header-ui';
 
 
 
@@ -15,6 +16,7 @@ export default function UI() {
 
   const render = () => {
     projectService().setupHomeProject();
+    headerToggleMenuIcon();
     const currentProject = projectService().getProject(_currentProjectID);
     _renderSidebarLinks();
     _renderTodoList(currentProject);
@@ -232,11 +234,11 @@ export default function UI() {
   }
 
   const showTodoDetailsSidebar = () => {
-    getElement('rightSidebar').classList.add('show-todo-details')
+    getElement('rightSidebar').classList.add('show-todo-details');
   }
 
   const hideTodoDetailsSidebar = () => {
-    getElement('rightSidebar').classList.remove('show-todo-details')
+    getElement('rightSidebar').classList.remove('show-todo-details');
   }
 
   let _isCompletedListRendered = false;

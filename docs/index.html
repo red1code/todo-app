@@ -10,11 +10,14 @@
 
   <body>
     <header class="txt-white">
+      <span id="ToggleMenu"></span>
       <h2>To Be is To Do!</h2>
+      <span></span>
     </header>
 
-    <main>
-      <div class="left-sidebar">
+    <main id="main">
+      <!-- project links -->
+      <div class="left-sidebar" id="leftSidebar">
         <form onsubmit="" id="projectForm">
           <button type="submit" class="reset-btn submit-btn">+</button>
           <input type="text" name="projectName" placeholder="Add new list" required>          
@@ -22,6 +25,7 @@
         <div class="projects-container" id="projectsContainer"></div>
       </div>
 
+      <!-- task list -->
       <div class="main-content">
         <h3 id="todoListTitle"></h3>
         <form onsubmit="" id="todoForm">
@@ -35,6 +39,7 @@
         <div class="todo-list-container" id="todoListContainer"></div>
       </div>
 
+      <!-- task details -->
       <div class="right-sidebar" id="rightSidebar">
         <div class="top-container">
           <div class="todo-title todoDetail"><strong id="todoTitle"></strong></div>
@@ -47,6 +52,8 @@
           <button class="delete-todo reset-btn" id="deleteTodo" title="Delete todo!"></button>
         </div>
       </div>
+
+      <div class="mobile-popup-bg" id="mobilePopupBg"></div>
     </main>
 
     <footer>
