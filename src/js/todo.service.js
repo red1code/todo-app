@@ -1,6 +1,6 @@
 import { saveToLocalStorage, getFromLocalStorage, STORAGE_KEYS } from "./utilities";
 import { hideTodoDetailsSidebar } from "./ui-parts/todo-details";
-import UI from "./ui";
+import renderUI from "./ui";
 
 
 export default function todoService() {
@@ -15,7 +15,7 @@ export default function todoService() {
   const addNewTodo = (todo) => {
     _todosList.push(todo);
     saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
-    UI().render()
+    renderUI()
   }
 
   const getCompletedTodos = (project) => {
@@ -31,7 +31,7 @@ export default function todoService() {
       }
     });
     saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
-    UI().render()
+    renderUI()
   }
 
   const deleteTodo = (todo) => {
@@ -39,7 +39,7 @@ export default function todoService() {
     if (confirm(`Are you sure to delete task "${todo.title}"?`)) {
       _todosList = _todosList.filter(item => item.id !== deleteID);
       saveToLocalStorage(STORAGE_KEYS.TODO_LIST, _todosList);
-      UI().render();
+      renderUI();
       hideTodoDetailsSidebar()
     }
   }

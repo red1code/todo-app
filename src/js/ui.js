@@ -8,18 +8,12 @@ import leftSidebarMenu from './ui-parts/left-sidebar-menu';
 import todoListUI from './ui-parts/todo-list-ui';
 
 
-export default function UI() {
-  const render = () => {
-    projectService().setupHomeProject();
-    headerToggleMenuIcon();
-    leftSidebarMenu();
-    const currentProject = projectService().getProject(getCurrentProjectID());
-    todoListUI(currentProject);
-    newProjectForm();
-    newTodoForm()
-  }
-
-  return {
-    render
-  }
+export default function renderUI() {
+  projectService().setupHomeProject();
+  headerToggleMenuIcon();
+  leftSidebarMenu();
+  const currentProject = projectService().getProject(getCurrentProjectID());
+  todoListUI(currentProject);
+  newProjectForm();
+  newTodoForm()
 }

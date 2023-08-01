@@ -1,4 +1,4 @@
-import UI from "./ui";
+import renderUI from "./ui";
 import {
   STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage
 } from "./utilities";
@@ -24,7 +24,7 @@ export default function projectService() {
   const addNewProject = (project) => {
     _projectList.push(project);
     saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
-    UI().render()
+    renderUI()
   }
 
   const updateProject = (projectID, projectUpdates) => {
@@ -36,7 +36,7 @@ export default function projectService() {
       }
     });
     saveToLocalStorage(STORAGE_KEYS.PROJECT_LIST, _projectList);
-    UI().render()
+    renderUI()
   }
 
   const deleteProject = (projectID) => {

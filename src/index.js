@@ -1,7 +1,7 @@
 import { getFooterYear } from './js/utilities';
-import UI from './js/ui';
+import renderUI from './js/ui';
 
 
 
-UI().render();
+renderUI();
 getFooterYear();

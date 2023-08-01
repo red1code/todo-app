@@ -2,7 +2,7 @@ import todoService from "../todo.service";
 import projectService from "../project.service";
 import { STORAGE_KEYS, getElement, saveToLocalStorage } from "../utilities";
 import deleteIcon from '../../assets/trash-can.svg';
-import UI from "../ui";
+import renderUI from "../ui";
 import todoDetails from "./todo-details";
 
 
@@ -57,7 +57,7 @@ function _getDeleteListBtn(project) {
       saveToLocalStorage(STORAGE_KEYS.CURRENT_PROJECT_ID, 'default_tasks');
       todoService().deleteProjectTasks(project.id);
       projectService().deleteProject(project.id);
-      UI().render()
+      renderUI()
     }
   }
   return deleteListBtn
